@@ -62,7 +62,7 @@ export function cpuMove() {
   let move
   for (let i = 0; i < availableSpots.length; i++) {
     console.log(" NEW ROW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", i)
-    const cell = getMove(i)
+    const cell = availableSpots[i]
     takeCpuSpot(cell)
     let score = minimax(0, true)
     undo(cell, i)
@@ -76,27 +76,23 @@ export function cpuMove() {
   console.log(bestScore)
   console.log(move)
   takeCpuSpot(move)
-  console.log(availableSpots)
+  move.style.backgroundImage = "url(../img/x.svg)"
+  console.log(checkWinner())
+  if (checkWinner() === false) {
+    displayWinner("c")
+  }
 }
 
 export function isTie() {
   return availableSpots.length === 0
 }
-
-function getMove(i) {
-  const cell = availableSpots[i]
-  return cell
-}
-
 function takeCpuSpot(cell) {
   cell.classList.add("occupied")
-  cell.style.backgroundImage = "url(../img/x.svg)"
   board[cell.id[0]][cell.id[1]] = "c"
   availableSpots.splice(availableSpots.indexOf(cell), 1)
 }
 function takePlayerSpot(cell) {
   cell.classList.add("occupied")
-  cell.style.backgroundImage = "url(../img/o.svg)"
   board[cell.id[0]][cell.id[1]] = "p"
   availableSpots.splice(availableSpots.indexOf(cell), 1)
 }
@@ -114,22 +110,22 @@ function minimax(depth, maxing) {
   if (isTie()) {
     return 0
   }
-  
   if (maxing) {
     let bestScore = -Infinity
     for (let i = 0; i < availableSpots.length; i++) {
-      const cell = getMove(i)
+      const cell = availableSpots[i]
       takePlayerSpot(cell)
       let score = minimax(depth + 1, !maxing)
       undo(cell, i)
       bestScore = Math.max(score, bestScore)
     }
+
     return bestScore
   }
   else {
     let bestScore = Infinity
     for (let i = 0; i < availableSpots.length; i++) {
-      const cell = getMove(i)
+      const cell = availableSpots[i]
       takeCpuSpot(cell)
       let score = minimax(depth + 1, !maxing)
       undo(cell, i)
