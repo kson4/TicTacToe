@@ -30,7 +30,7 @@ body {
 .info {
   width: 600px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   /* gap: 30px; */
   font-size: 3em;

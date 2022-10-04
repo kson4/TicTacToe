@@ -3,6 +3,8 @@ import { playerTurn, board, checkWinner, cpuMove, reset } from "./logic.js"
 export let availableSpots = []
 document.querySelector(".turn").textContent = "PLAYER'S"
 const cells = document.querySelectorAll(".cell")
+let playerRecentMove
+let cpuRecentMove
 cells.forEach((cell) => {
   availableSpots.push(cell)
   cell.addEventListener("mouseover", () => {
@@ -17,11 +19,11 @@ cells.forEach((cell) => {
   })
   cell.addEventListener("click", () => {
     if (!cell.classList.contains("occupied")) {
+      playerRecentMove = cell
       cell.style.backgroundImage = "url(../img/o.svg)"
       cell.classList.add("occupied")
       board[cell.id[0]][cell.id[1]] = "p"
       availableSpots.splice(availableSpots.indexOf(cell), 1)
-      cpuMove()
       const winner = checkWinner()
       if (winner) {
         console.log(winner)
@@ -29,13 +31,16 @@ cells.forEach((cell) => {
         document.querySelector(".container").classList.add("inactive")
         if (winner === "p") {
           document.querySelector(".player-score-value").textContent++
-          winner-display
+          // winner-display
           document.querySelector(".winner-text").textContent = "PLAYER WINS!"
         }
         else {
           document.querySelector(".cpu-score-value").textContent++
           document.querySelector(".winner-text").textContent = "CPU WINS!"
         }
+      }
+      else {
+        cpuRecentMove = cpuMove()
       }
     }
   })

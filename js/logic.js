@@ -43,14 +43,27 @@ export function cpuMove() {
   availableSpots.splice(availableSpots.indexOf(cell), 1)
   cell.classList.add("occupied")
   cell.style.backgroundImage = "url(../img/x.svg)"
-  console.log("took: ", cell)
   board[cell.id[0]][cell.id[1]] = "c"
+  const winner = checkWinner()
+  if (winner) {
+    console.log(winner)
+    document.querySelector(".winner-display").classList.add("visible")
+    document.querySelector(".container").classList.add("inactive")
+    if (winner === "p") {
+      document.querySelector(".player-score-value").textContent++
+      // winner-display
+      document.querySelector(".winner-text").textContent = "PLAYER WINS!"
+    }
+    else {
+      document.querySelector(".cpu-score-value").textContent++
+      document.querySelector(".winner-text").textContent = "CPU WINS!"
+    }
+  }
+  return cell
 }
 
 export function reset(availableSpots) {
   board = [["", "", "",], ["", "", "",], ["", "", "",]]
-  console.log(availableSpots)
-
   availableSpots = []
   console.log()
   const cells = document.querySelectorAll(".cell")
@@ -59,6 +72,5 @@ export function reset(availableSpots) {
     cell.style.backgroundImage = ""
     availableSpots.push(cell)
   })
-  console.log(availableSpots)
   return availableSpots
 }
