@@ -9,34 +9,53 @@
   <script src="https://kit.fontawesome.com/661ac17a3d.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <div class="game">
-    <div class="info">
-      <div class="whos-turn">___ TURN</div>
-      <button>RESET</button>
+  <div class="winner-display">
+      <div class="winner-text"></div>
+      <button id="play-again">PLAY AGAIN</button>
     </div>
-    <div class="board">
-      <div class="row r0">
-        <div class="cell" id="00"></div>
-        <div class="cell" id="01"></div>
-        <div class="cell" id="02"></div>
+  <div class="container">
+    <div class="game">
+      <div class="info">
+        <div class="whos-turn">
+          <span class="turn"></span>
+          <span>TURN</span>
+        </div>
+        <button class="back"></button>
       </div>
-      <div class="row r1">
-        <div class="cell" id="10"></div>
-        <div class="cell" id="11"></div>
-        <div class="cell" id="12"></div>
+      <div class="board">
+        <div class="row r0">
+          <div class="cell" id="00"></div>
+          <div class="cell" id="01"></div>
+          <div class="cell" id="02"></div>
+        </div>
+        <div class="row r1">
+          <div class="cell" id="10"></div>
+          <div class="cell" id="11"></div>
+          <div class="cell" id="12"></div>
+        </div>
+        <div class="row r2">
+          <div class="cell" id="20"></div>
+          <div class="cell" id="21"></div>
+          <div class="cell" id="22"></div>
+        </div>
       </div>
-      <div class="row r2">
-        <div class="cell" id="20"></div>
-        <div class="cell" id="21"></div>
-        <div class="cell" id="22"></div>
+      <div class="score">
+        <div class="player-score">
+          <p>PLAYER SCORE:</p>
+          <p class="player-score-value value">0</p>
+        </div>
+        <div class="ties">
+          <p>TIES:</p>
+          <p class="ties-value value">0</p>
+        </div>
+        <div class="cpu-score">
+          <p>CPU SCORE:</p>
+          <p class="cpu-score-value value">0</p>
+        </div>
       </div>
-    </div>
-    <div class="score">
-      <div class="player-score"></div>
-      <div class="ties"></div>
-      <div class="cpu-score"></div>
     </div>
   </div>
+  
   <script src="./js/setup.js" type="module"></script>
   <!-- <script src="./js/logic.js"></script> -->
 </body>

@@ -1,6 +1,6 @@
 import { availableSpots } from "./setup.js"
 export let playerTurn = true
-export const board = [["", "", "",], ["", "", "",], ["", "", "",]]
+export let board = [["", "", "",], ["", "", "",], ["", "", "",]]
 
 export function checkWinner() {
   if (board[0][0] == "p" && board[0][1] == "p" && board[0][2] == "p" || 
@@ -38,10 +38,27 @@ export function checkWinner() {
 }
 
 export function cpuMove() {
-  console.log(availableSpots)
-  
+  document.querySelector(".turn").textContent = "COMPUTER'S"
   const cell = availableSpots[Math.floor(Math.random() * availableSpots.length)]
+  availableSpots.splice(availableSpots.indexOf(cell), 1)
   cell.classList.add("occupied")
   cell.style.backgroundImage = "url(../img/x.svg)"
+  console.log("took: ", cell)
   board[cell.id[0]][cell.id[1]] = "c"
+}
+
+export function reset(availableSpots) {
+  board = [["", "", "",], ["", "", "",], ["", "", "",]]
+  console.log(availableSpots)
+
+  availableSpots = []
+  console.log()
+  const cells = document.querySelectorAll(".cell")
+  cells.forEach((cell) => {
+    cell.classList.remove("occupied")
+    cell.style.backgroundImage = ""
+    availableSpots.push(cell)
+  })
+  console.log(availableSpots)
+  return availableSpots
 }
