@@ -61,23 +61,17 @@ export function cpuMove() {
   let bestScore = Infinity
   let move
   for (let i = 0; i < availableSpots.length; i++) {
-    console.log(" NEW ROW~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", i)
     const cell = availableSpots[i]
     takeCpuSpot(cell)
     let score = minimax(0, true)
     undo(cell, i)
-    console.log(score)
     if (score < bestScore) {
-      console.log("taking: ", cell)
       move = cell
       bestScore = score
     }
   }
-  console.log(bestScore)
-  console.log(move)
   takeCpuSpot(move)
   move.style.backgroundImage = "url(../img/x.svg)"
-  console.log(checkWinner())
   if (checkWinner() === false) {
     displayWinner("c")
   }
@@ -138,7 +132,6 @@ function minimax(depth, maxing) {
 export function reset(availableSpots) {
   board = [["", "", "",], ["", "", "",], ["", "", "",]]
   availableSpots = []
-  console.log()
   const cells = document.querySelectorAll(".cell")
   cells.forEach((cell) => {
     cell.classList.remove("occupied")

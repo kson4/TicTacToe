@@ -19,25 +19,22 @@ cells.forEach((cell) => {
     }
   })
   cell.addEventListener("click", () => {
+    if (!cell.classList.contains("occupied")) {
+      playerRecentMove = cell
+      cell.style.backgroundImage = "url(../img/o.svg)"
+      cell.classList.add("occupied")
+      board[cell.id[0]][cell.id[1]] = "p"
+      availableSpots.splice(availableSpots.indexOf(cell), 1)
+      if (checkWinner()) {
+        displayWinner("p")
+      }
+    }
     if (isTie()) {
       displayWinner("t")
     }
     else {
-      if (!cell.classList.contains("occupied")) {
-        playerRecentMove = cell
-        cell.style.backgroundImage = "url(../img/o.svg)"
-        cell.classList.add("occupied")
-        board[cell.id[0]][cell.id[1]] = "p"
-        availableSpots.splice(availableSpots.indexOf(cell), 1)
-        if (checkWinner()) {
-          displayWinner("p")
-        }
-        else {
-          cpuMove()
-        }
-      }
+      cpuMove()
     }
-    
   })
 })
 
