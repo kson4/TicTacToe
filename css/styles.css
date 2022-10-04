@@ -34,8 +34,11 @@ body {
   border: 1px solid blue;
   border-radius: 10px;
   box-shadow: 0 8px 2px -2px gray;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .cell:hover {
   background-color: red;
+  background-repeat: no-repeat;
 }
