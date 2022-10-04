@@ -1,10 +1,11 @@
-import { playerTurn, board, checkWinner, cpuMove, reset } from "./logic.js"
+import { board, checkWinner, cpuMove, reset, displayWinner, isTie } from "./logic.js"
 
 export let availableSpots = []
 document.querySelector(".turn").textContent = "PLAYER'S"
 const cells = document.querySelectorAll(".cell")
 let playerRecentMove
 let cpuRecentMove
+
 cells.forEach((cell) => {
   availableSpots.push(cell)
   cell.addEventListener("mouseover", () => {
@@ -18,38 +19,31 @@ cells.forEach((cell) => {
     }
   })
   cell.addEventListener("click", () => {
-    if (!cell.classList.contains("occupied")) {
-      playerRecentMove = cell
-      cell.style.backgroundImage = "url(../img/o.svg)"
-      cell.classList.add("occupied")
-      board[cell.id[0]][cell.id[1]] = "p"
-      availableSpots.splice(availableSpots.indexOf(cell), 1)
-      const winner = checkWinner()
-      if (winner) {
-        console.log(winner)
-        document.querySelector(".winner-display").classList.add("visible")
-        document.querySelector(".container").classList.add("inactive")
-        if (winner === "p") {
-          document.querySelector(".player-score-value").textContent++
-          // winner-display
-          document.querySelector(".winner-text").textContent = "PLAYER WINS!"
+    if (isTie()) {
+      displayWinner("t")
+    }
+    else {
+      if (!cell.classList.contains("occupied")) {
+        playerRecentMove = cell
+        cell.style.backgroundImage = "url(../img/o.svg)"
+        cell.classList.add("occupied")
+        board[cell.id[0]][cell.id[1]] = "p"
+        availableSpots.splice(availableSpots.indexOf(cell), 1)
+        if (checkWinner()) {
+          displayWinner("p")
         }
         else {
-          document.querySelector(".cpu-score-value").textContent++
-          document.querySelector(".winner-text").textContent = "CPU WINS!"
+          cpuMove()
         }
       }
-      else {
-        cpuRecentMove = cpuMove()
-      }
     }
+    
   })
 })
 
 document.querySelector("#play-again").addEventListener("click", () => {
   document.querySelector(".winner-display").classList.remove("visible")
   document.querySelector(".container").classList.remove("inactive")
-  // debugger
   availableSpots = reset(availableSpots)
   console.log(availableSpots)
 })
